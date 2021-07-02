@@ -119,7 +119,9 @@ class RunnungPathRecommendation {
         graph[11][6] = 24;
 
         // Main user interface
-        Scanner inpObj = new Scanner(System.in);
+        new AppFrame();
+
+        /*Scanner inpObj = new Scanner(System.in);
 
         System.out.println("Pilih tempat sekarang :");
         System.out.println("1. Teknik Kimia");
@@ -163,6 +165,6 @@ class RunnungPathRecommendation {
             System.out.println("Jarak terbaik Anda : " + dist);
             System.out.println("Selamat Berlari !");
         }
-        inpObj.close();
+        inpObj.close();*/
     }
 }
