@@ -10,40 +10,80 @@ import java.util.Scanner;
 import java.util.Vector;
  
 class RunnungPathRecommendation {
-    static int MAX_INT = Integer.MAX_VALUE;
+    private static final int NO_PAR = -1;
 
-    public static int bestPath(int crossroadAmount, int tempCrossroad, int dest, boolean visited[], int graph[][]) {
-        // Best Path found / Base Case
-        // further distance will be 0
-        if(tempCrossroad == dest) {
-            return 0;
+    private static void djikstraAlgo(int adjMatrix[][], int src, int dest, Vector<crossRoadNode> roadList) {
+        int vertexAmount = adjMatrix[src].length;
+
+        // array to trace the path
+        int shortestDist[] = new int[vertexAmount];
+
+        // visited bool
+        boolean visited[] = new boolean[vertexAmount];
+
+        // initialize distances
+        for(int i = 0; i < vertexAmount; i++) {
+            shortestDist[i] = Integer.MAX_VALUE;
+            visited[i] = false;
         }
 
-        // Mark current crossroad as visited
-        visited[tempCrossroad] = true;
+        // dist to self
+        shortestDist[src] = 0;
 
-        // next neighbor distance will be max for temporary
-        int ans = MAX_INT;
+        // parents for tracing path
+        int parents[] = new int[vertexAmount];
 
-        // traverse all adjacent crossroad
-        for(int i = 0; i<crossroadAmount; i++) {
-            if(graph[tempCrossroad][i] != MAX_INT && !visited[i]) {
-                // Add real adjacent crossroad's distance
-                int curr = bestPath(crossroadAmount, i, dest, visited, graph);
+        // start vertex has no parent
+        parents[src] = NO_PAR;
 
-                // if dest reached
-                if(curr < MAX_INT) {
-                    // find minimum distance
-                    ans = Math.min(ans, graph[tempCrossroad][i] + curr);
+        for (int j = 1; j < vertexAmount; j++)
+        {
+            // find shortest path
+            int adjVertex = -1;
+            int shortest = Integer.MAX_VALUE;
+
+            for(int i = 0; i < vertexAmount; i++) {
+                if(shortestDist[i] < shortest && !visited[i]) {
+                    adjVertex = i;
+                    shortest = shortestDist[i];
+                }
+            }
+
+            visited[adjVertex] = true;
+
+            for(int i = 0; i < vertexAmount; i++) {
+                int edgeDist = adjMatrix[adjVertex][i];
+
+                if(edgeDist > 0 && ((shortest + edgeDist) < shortestDist[i])) {
+                    parents[i] = adjVertex;
+                    shortestDist[i] = shortest + edgeDist;
                 }
             }
         }
+        printSolution(src, shortestDist, parents, dest, roadList);
+    }
 
-        // Unmark current node so can be used again
-        visited[tempCrossroad] = false;
+    private static void printSolution(int src, int distances[], int parents[], int dest, Vector<crossRoadNode> roadList) {
 
-        // Return best distance
-        return ans;
+        System.out.println(distances[dest]);
+
+        if(dest != src) {
+            System.out.println("Jalan yang akan anda lalui");
+            System.out.print(roadList.elementAt(dest).getLabel());
+            printPath(parents[dest], parents, roadList);
+        }
+        else {
+            System.out.print("Jalan yang Anda pilih sama");
+        }
+    }
+
+    private static void printPath(int currVertex, int parents[], Vector<crossRoadNode> roadList) {
+        if(currVertex == NO_PAR) {
+            return;
+        }
+        
+        printPath(parents[currVertex], parents, roadList);
+        System.out.print(" -> " + roadList.elementAt(currVertex).getLabel());
     }
 
     public static void main(String[] args) {
@@ -85,7 +125,7 @@ class RunnungPathRecommendation {
 
         for(int i = 0; i < amount; i++) {
             for(int j = 0; j < amount; j++) {
-                graph[i][j] = Integer.MAX_VALUE;
+                graph[i][j] = 0;
             }
         }
 
@@ -119,9 +159,9 @@ class RunnungPathRecommendation {
         graph[11][6] = 24;
 
         // Main user interface
-        new AppFrame();
+        //new AppFrame();
 
-        /*Scanner inpObj = new Scanner(System.in);
+        Scanner inpObj = new Scanner(System.in);
 
         System.out.println("Pilih tempat sekarang :");
         System.out.println("1. Teknik Kimia");
@@ -159,12 +199,13 @@ class RunnungPathRecommendation {
             System.out.println("Tempat sekarang dan tujuan anda sama, Mohon coba lagi");
         }
         else {
-            int dist = bestPath(amount, src-1, dest-1, visited, graph);
             System.out.println("Tempat mulai berlari Anda : " + crossroadList.elementAt(src-1).getLabel());
             System.out.println("Tujuan berlari Anda : " + crossroadList.elementAt(dest-1).getLabel());
-            System.out.println("Jarak terbaik Anda : " + dist);
+            System.out.print("Jarak terbaik Anda : ");
+            djikstraAlgo(graph, src-1, dest-1, crossroadList);
+            System.out.println();
             System.out.println("Selamat Berlari !");
         }
-        inpObj.close();*/
+        inpObj.close();
     }
 }
