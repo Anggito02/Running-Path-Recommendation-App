@@ -8,13 +8,15 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Map;
+
 import javax.swing.*;
 
 public class AppFrame implements ActionListener
 {
     /* ===== PRIVATE VARIABLE FOR MAIN FRAME ===== */
     // Frame
-    public JFrame mainFrame = new JFrame("Run Path Recommendation");
+    public JFrame mainFrame = new JFrame("Runner Path");
 
     // Header Panel
     private JPanel headerPanel = new JPanel();
@@ -22,14 +24,18 @@ public class AppFrame implements ActionListener
     private JLabel headerTitle = new JLabel("Runner Path");
 
     // Map Panel
-    private JPanel mapPanel = new JPanel();
-    private MapCanvas map = new MapCanvas();
+    MapCanvas imageCanvas = new MapCanvas();
+    JPanel mapPanel = new JPanel();
+    //private MapCanvas map = new MapCanvas();
+    // Map label
+    // Image
+    //private ImageIcon i = new ImageIcon("maps_no_weight.png");
 
     // User Panel
     private JPanel userPanel = new JPanel();
     // Labels
-    private JLabel srcLabel = new JLabel("Pilih tempat mulai Anda");
-    private JLabel destLabel = new JLabel("Pilih tempan tujuan Anda");
+    private JLabel srcLabel = new JLabel("START");
+    private JLabel destLabel = new JLabel("FINISH");
     // ComboBox
     // => Crossroads
     private String crossRoads[]= {"Teknik Kimia", "Teknik Hidrodinamika", "Taman Teknologi",
@@ -37,21 +43,20 @@ public class AppFrame implements ActionListener
         "Taman Alumni", "Bundaran ITS 1", "Bundaran ITS 2", "Bundaran ITS 3"};
     private JComboBox<String> srcCB = new JComboBox<String>(crossRoads);
     private JComboBox<String> destCB = new JComboBox<String>(crossRoads);
-    // Text Area
-    private JTextArea srcUserText = new JTextArea();
-    private JTextArea destUserText = new JTextArea();
     // Button
-    private JButton calcButton = new JButton("Calculate My Best Path");
+    private JButton calcButton = new JButton("Find My Path");
     
     /* ===== UTILITY ===== */
     private Font f1 = new Font("Verdana", Font.ITALIC + Font.BOLD, 32);     // title
-    private Font f2 = new Font(Font.SERIF, Font.BOLD, 18);          // calc
+    private Font f2 = new Font("Helvetica", Font.BOLD, 25);          // calc
     private Font f3 = new Font(Font.SERIF, Font.BOLD, 18);          // buttons
-    private Font f4 = new Font(Font.SERIF, Font.PLAIN, 13);         // menus
+    private Font f4 = new Font(Font.SERIF, Font.PLAIN, 16);         // menus
 
     private Color c1 = new Color(245, 163, 0);      // yellow
-
+    private Color c3 = new Color(255, 204, 0);
+    private Color c2 = new Color(46, 44, 40);       // brown
     /* ===== END OF UTILITY ===== */
+
     // Constructur for App Frame
     public AppFrame() {
         initComponents();
@@ -68,8 +73,8 @@ public class AppFrame implements ActionListener
 
         /* ===== ADD PANELS ===== */
         mainFrame.add(headerPanel, BorderLayout.PAGE_START);
-        mainFrame.add(mapPanel, BorderLayout.LINE_START);
-        mainFrame.add(userPanel, BorderLayout.LINE_END);
+        mainFrame.add(mapPanel, BorderLayout.CENTER);
+        mainFrame.add(userPanel, BorderLayout.PAGE_END);
 
         /* ========== END CONTAINER SETTINGS ========== */
         
@@ -88,15 +93,81 @@ public class AppFrame implements ActionListener
 
         /* ===== MAP PANEL ===== */
         mapPanel.setBackground(Color.WHITE);
-        mapPanel.setPreferredSize(new Dimension(460, 750));
+        mapPanel.setPreferredSize(new Dimension(500, 500));
         mapPanel.setLayout(null);
     
-        mapPanel.add(map);
+        mapPanel.add(imageCanvas);
+        /* ===== END OF MAP PANEL ===== */
+
+        /* ===== USER PANEL ===== */
+        userPanel.setPreferredSize(new Dimension(680, 180));
+        userPanel.setLayout(null);
+
+        srcLabel.setBounds(200, 25, 100, 32);
+        //setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        srcLabel.setForeground(c2);
+        srcLabel.setFont(f2);
+
+        destLabel.setBounds(200, 84, 100, 32);
+        //destLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        destLabel.setForeground(c2);
+        destLabel.setFont(f2);
+
+        srcCB.setBounds(320, 32, 180, 24);
+        srcCB.setFont(f4);
+        srcCB.setBackground(c3);
+        // Source Combobox Event
+        srcCB.addActionListener(this);
+        srcCB.setActionCommand("START");
+
+        destCB.setBounds(320, 91, 180, 24);
+        destCB.setFont(f4);
+        destCB.setBackground(c3);
+        // Destination Combobox Event
+        destCB.addActionListener(this);
+        destCB.setActionCommand("DESTINATION");
+
+        calcButton.setBounds(280, 140, 150, 30);
+        calcButton.setFont(f3);
+        calcButton.setBackground(c1);
+        calcButton.setForeground(Color.WHITE);
+        calcButton.setBorder(BorderFactory.createLineBorder(c2, 1));
+        // Calc Button Event
+        calcButton.addActionListener(this);
+        calcButton.setActionCommand("CALCULATE");
+
+        userPanel.add(srcLabel);
+        userPanel.add(destLabel);
+        userPanel.add(srcCB);
+        userPanel.add(destCB);
+        userPanel.add(calcButton);
+        /* ===== END OF USER PANEL ===== */
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
+        String command = e.getActionCommand();
+        int src, dest;
+        String from, to;
+
+        if(command == "START") {
+            src = srcCB.getSelectedIndex();
+            from = (String) srcCB.getSelectedItem();
+        }
+
+        if(command == "DESTINATION") {
+            dest = destCB.getSelectedIndex();
+            to = (String) destCB.getSelectedItem();
+        }
+
+        if(command == "CALCULATE") {
+            src = srcCB.getSelectedIndex();
+            from = (String) srcCB.getSelectedItem();
+            dest = destCB.getSelectedIndex();
+            to = (String) destCB.getSelectedItem();
+            new PathFrame(src, dest, from, to);
+        }   
     }
 }

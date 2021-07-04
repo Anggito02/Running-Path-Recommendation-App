@@ -87,7 +87,7 @@ class RunnungPathRecommendation {
     }
 
     public static void main(String[] args) {
-        // Initialize crossroad's amount
+        /*// Initialize crossroad's amount
         int amount = 12;
 
         // array of crossroads
@@ -156,12 +156,12 @@ class RunnungPathRecommendation {
         graph[10][9] = 8;
         graph[10][11] = 8;
         graph[11][10] = 8;
-        graph[11][6] = 24;
+        graph[11][6] = 24;*/
 
         // Main user interface
-        //new AppFrame();
+        new AppFrame();
 
-        Scanner inpObj = new Scanner(System.in);
+        /*Scanner inpObj = new Scanner(System.in);
 
         System.out.println("Pilih tempat sekarang :");
         System.out.println("1. Teknik Kimia");
@@ -206,6 +206,6 @@ class RunnungPathRecommendation {
             System.out.println();
             System.out.println("Selamat Berlari !");
         }
-        inpObj.close();
+        inpObj.close();*/
     }
 }

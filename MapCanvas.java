@@ -10,12 +10,18 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class MapCanvas extends Canvas 
+public class MapCanvas extends JPanel
 {
+    MapCanvas() {
+    }
+
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2D = (Graphics2D) g;
+
         Toolkit t = Toolkit.getDefaultToolkit();
         Image i = t.getImage("maps_no_weight.png");
-        g.drawImage(i, 460, 750, this);
+        g2D.drawImage(i, 30, 30, this);
     }
 }
