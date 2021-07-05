@@ -12,16 +12,15 @@ import javax.swing.*;
 
 public class MapCanvas extends JPanel
 {
+    private ImageIcon mapImage;
+    private JLabel label1;
+
     MapCanvas() {
-    }
+        setLayout(new FlowLayout());
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2D = (Graphics2D) g;
+        mapImage = new ImageIcon(getClass().getResource("maps_no_weight.png"));
 
-        Toolkit t = Toolkit.getDefaultToolkit();
-        Image i = t.getImage("maps_no_weight.png");
-        g2D.drawImage(i, 30, 30, this);
+        label1 = new JLabel(mapImage);
+        add(label1);
     }
 }

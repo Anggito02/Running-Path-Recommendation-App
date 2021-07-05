@@ -104,7 +104,7 @@ public class PathFrame
         startLabel.setForeground(c2);
         //startLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        ansStartLabel.setBounds(115, 51, 130, 18);
+        ansStartLabel.setBounds(115, 51, 160, 18);
         ansStartLabel.setFont(f5);
         ansStartLabel.setForeground(c2);
         ansStartLabel.setBackground(c3);
@@ -115,7 +115,7 @@ public class PathFrame
         finishLabel.setForeground(c2);
         //.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        ansFinishLabel.setBounds(115, 81, 130, 18);
+        ansFinishLabel.setBounds(115, 81, 160, 18);
         ansFinishLabel.setFont(f5);
         ansFinishLabel.setForeground(c2);
         ansFinishLabel.setBackground(c3);
@@ -229,8 +229,8 @@ public class PathFrame
         if(dest != src) {
             //System.out.println("Jalan yang akan anda lalui");
             //System.out.print(roadList.elementAt(dest).getLabel());
-            ansPathLabel.append(roadList.elementAt(dest).getLabel());
-            printPath(parents[dest], parents, roadList);
+            ansPathLabel.append("START HERE");
+            printPath(dest, parents, roadList);
             initComponents();
         }
         /*else {

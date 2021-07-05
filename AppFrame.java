@@ -24,12 +24,14 @@ public class AppFrame implements ActionListener
     private JLabel headerTitle = new JLabel("Runner Path");
 
     // Map Panel
-    MapCanvas imageCanvas = new MapCanvas();
-    JPanel mapPanel = new JPanel();
+    //MapCanvas imageCanvas = new MapCanvas();
+    //JPanel mapPanel = new JPanel();
     //private MapCanvas map = new MapCanvas();
     // Map label
     // Image
     //private ImageIcon i = new ImageIcon("maps_no_weight.png");
+    // Image Icon
+    MapCanvas drawMap = new MapCanvas();
 
     // User Panel
     private JPanel userPanel = new JPanel();
@@ -73,7 +75,8 @@ public class AppFrame implements ActionListener
 
         /* ===== ADD PANELS ===== */
         mainFrame.add(headerPanel, BorderLayout.PAGE_START);
-        mainFrame.add(mapPanel, BorderLayout.CENTER);
+        mainFrame.add(drawMap, BorderLayout.CENTER);
+        //mainFrame.add(mapPanel, BorderLayout.CENTER);
         mainFrame.add(userPanel, BorderLayout.PAGE_END);
 
         /* ========== END CONTAINER SETTINGS ========== */
@@ -92,11 +95,11 @@ public class AppFrame implements ActionListener
         /* ===== END OF HEADER PANEL ===== */
 
         /* ===== MAP PANEL ===== */
-        mapPanel.setBackground(Color.WHITE);
-        mapPanel.setPreferredSize(new Dimension(500, 500));
-        mapPanel.setLayout(null);
+        //mapPanel.setBackground(Color.WHITE);
+        //mapPanel.setPreferredSize(new Dimension(500, 500));
+        //mapPanel.setLayout(null);
     
-        mapPanel.add(imageCanvas);
+        //mapPanel.add(imageCanvas);
         /* ===== END OF MAP PANEL ===== */
 
         /* ===== USER PANEL ===== */

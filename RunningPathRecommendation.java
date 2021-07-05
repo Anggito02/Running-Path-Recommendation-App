@@ -69,8 +69,8 @@ class RunnungPathRecommendation {
 
         if(dest != src) {
             System.out.println("Jalan yang akan anda lalui");
-            System.out.print(roadList.elementAt(dest).getLabel());
-            printPath(parents[dest], parents, roadList);
+            System.out.print("START HERE");
+            printPath(dest, parents, roadList);
         }
         else {
             System.out.print("Jalan yang Anda pilih sama");
