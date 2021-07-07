@@ -8,7 +8,6 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Map;
 
 import javax.swing.*;
 
@@ -23,14 +22,6 @@ public class AppFrame implements ActionListener
     // Labels
     private JLabel headerTitle = new JLabel("Runner Path");
 
-    // Map Panel
-    //MapCanvas imageCanvas = new MapCanvas();
-    //JPanel mapPanel = new JPanel();
-    //private MapCanvas map = new MapCanvas();
-    // Map label
-    // Image
-    //private ImageIcon i = new ImageIcon("maps_no_weight.png");
-    // Image Icon
     MapCanvas drawMap = new MapCanvas();
 
     // User Panel
@@ -93,14 +84,6 @@ public class AppFrame implements ActionListener
 
         headerPanel.add(headerTitle);
         /* ===== END OF HEADER PANEL ===== */
-
-        /* ===== MAP PANEL ===== */
-        //mapPanel.setBackground(Color.WHITE);
-        //mapPanel.setPreferredSize(new Dimension(500, 500));
-        //mapPanel.setLayout(null);
-    
-        //mapPanel.add(imageCanvas);
-        /* ===== END OF MAP PANEL ===== */
 
         /* ===== USER PANEL ===== */
         userPanel.setPreferredSize(new Dimension(680, 180));
